@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
+    justify-content: center;
 }
 
 h1{
@@ -30,16 +30,28 @@ input[type=checkbox]{
 }
 
 #incomplete-items .incomplete{
-    background-color:darkcyan;
+    background-color:rgb(182, 32, 6);
     width:fit-content;
+    color: white;
     border: 1px solid black;
     margin: .5em;
+    border-radius: .2em;
+
 }
 
 #complete-items .completed{
-    background-color: aqua;
+    background-color: rgb(28, 60, 243);
+    color: white;
     width:fit-content;
     border: 1px solid black;
     margin: .5em;
+    border-radius: .8em;
 }
+
+@media screen and (max-width: 650px) {
+    #complete-items, 
+    #incomplete-items {
+      flex-direction:column;
+    }
+  }
 
