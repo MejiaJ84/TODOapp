@@ -21,11 +21,19 @@ function main(){
 }
 
 function isValid():boolean{
+    let isDataValid = true;
+
+    let title = getInputId("title").value;
+    if(title == ""){
+        isDataValid = false;
+        alert("Please enter a task.");
+    }
+    return isDataValid;
 
 }
 
 /**
- * get all input off form and wrap int 
+ * get all input off form and wrap in 
  * a todo item object
  */
 function getToDoItem():ToDoItem{
@@ -64,6 +72,9 @@ function displayToDoItem(item:ToDoItem):void{
     if(item.isCompleted){
         itemDiv.classList.add("completed");
     }
+    else{
+        itemDiv.classList.add("incomplete");
+    }
 
     /*
         <div class = "completed">
@@ -82,6 +93,17 @@ function displayToDoItem(item:ToDoItem):void{
         let incompleteToDos = document.getElementById("incomplete-items");
         incompleteToDos.appendChild(itemDiv);
     }
+}
+
+function markComplete(){
+    let itemDiv = <HTMLElement>this;
+    console.log(itemDiv);
+    itemDiv.classList.add("completed")
+
+    let completedItems = document.getElementById("complete-items");
+    console.log(completedItems);
+    completedItems.appendChild(itemDiv);
+
 }
 
 function getInputId(id:string):HTMLInputElement{

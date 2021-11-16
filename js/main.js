@@ -16,6 +16,13 @@ function main() {
     }
 }
 function isValid() {
+    var isDataValid = true;
+    var title = getInputId("title").value;
+    if (title == "") {
+        isDataValid = false;
+        alert("Please enter a task.");
+    }
+    return isDataValid;
 }
 function getToDoItem() {
     var myItem = new ToDoItem();
@@ -36,6 +43,9 @@ function displayToDoItem(item) {
     if (item.isCompleted) {
         itemDiv.classList.add("completed");
     }
+    else {
+        itemDiv.classList.add("incomplete");
+    }
     itemDiv.appendChild(itemText);
     itemDiv.appendChild(itemDate);
     if (item.isCompleted) {
@@ -46,6 +56,14 @@ function displayToDoItem(item) {
         var incompleteToDos = document.getElementById("incomplete-items");
         incompleteToDos.appendChild(itemDiv);
     }
+}
+function markComplete() {
+    var itemDiv = this;
+    console.log(itemDiv);
+    itemDiv.classList.add("completed");
+    var completedItems = document.getElementById("complete-items");
+    console.log(completedItems);
+    completedItems.appendChild(itemDiv);
 }
 function getInputId(id) {
     return document.getElementById(id);
