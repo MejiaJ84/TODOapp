@@ -1,12 +1,28 @@
+.flex-container{
+    display: flex;
+}
+
 #complete-items, 
 #incomplete-items{
-    display: flex;
+    flex: 50%;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
+#incomplete-items{
+    border: 3px solid red;
+}
+
+#complete-items{
+    border: 3px solid blue;
+}
+
 h1{
+    text-align: center;
+}
+
+#comp{
     text-align: center;
 }
 
@@ -34,8 +50,8 @@ input[type=checkbox]{
     width:fit-content;
     color: white;
     border: 1px solid black;
-    margin: .5em;
     border-radius: .2em;
+    margin-top: .5em;
 
 }
 
@@ -44,8 +60,8 @@ input[type=checkbox]{
     color: white;
     width:fit-content;
     border: 1px solid black;
-    margin: .5em;
     border-radius: .8em;
+    margin-top: .5em;
 }
 
 @media screen and (max-width: 650px) {

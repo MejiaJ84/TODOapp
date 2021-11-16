@@ -2,6 +2,8 @@
 const picker = datepicker("#due-date"); 
 picker.setMin(new Date()); // Set to current date
 
+const todokey = "todo";
+
 class ToDoItem{
     title:string;
     dueDate:Date;
@@ -11,12 +13,26 @@ class ToDoItem{
 window.onload = function(){
     let addItem = document.getElementById("add");
     addItem.onclick = main;
+    
+    // Load saved item
+    loadSavedItem();
 }
+
+function loadSavedItem(){
+    let itemArray = getToDoItems(); // reads from web storage
+
+    // going through a loop to display each index
+    for(let i = 0; i < itemArray.length; i++){
+        displayToDoItem(itemArray[i]);
+    }
+}
+
 
 function main(){
     if(isValid()){
         let item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 
@@ -52,8 +68,6 @@ function getToDoItem():ToDoItem{
     myItem.isCompleted = isCompleted.checked;
 
     return myItem;
-
-
 }
 
 /**
@@ -65,10 +79,15 @@ function displayToDoItem(item:ToDoItem):void{
     itemText.innerText = item.title;
 
     let itemDate = document.createElement("p");
-    itemDate.innerText = item.dueDate.toDateString();
+    // itemDate.innerText = item.dueDate.toDateString();
+    let dueDate = new Date(item.dueDate.toString());
+    itemDate.innerText = dueDate.toDateString();
 
     // <div class="completed"></div> or empty <div></div>
     let itemDiv = document.createElement("div");
+
+    itemDiv.onclick = markComplete;
+
     if(item.isCompleted){
         itemDiv.classList.add("completed");
     }
@@ -104,6 +123,27 @@ function markComplete(){
     console.log(completedItems);
     completedItems.appendChild(itemDiv);
 
+}
+
+function saveToDo(item:ToDoItem):void{
+    let currItems = getToDoItems();
+    if(currItems == null){ // no items found
+        currItems = new Array();
+    }
+    currItems.push(item); // add new items to current ones
+
+    let currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todokey, currItemsString);
+}
+
+/**
+ * get stored todo items or
+ * null if none found
+ */
+function getToDoItems():ToDoItem[]{
+    let itemString = localStorage.getItem(todokey);
+    let item:ToDoItem[] = JSON.parse(itemString);
+    return item;
 }
 
 function getInputId(id:string):HTMLInputElement{

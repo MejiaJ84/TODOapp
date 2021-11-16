@@ -1,5 +1,6 @@
 var picker = datepicker("#due-date");
 picker.setMin(new Date());
+var todokey = "todo";
 var ToDoItem = (function () {
     function ToDoItem() {
     }
@@ -8,11 +9,19 @@ var ToDoItem = (function () {
 window.onload = function () {
     var addItem = document.getElementById("add");
     addItem.onclick = main;
+    loadSavedItem();
 };
+function loadSavedItem() {
+    var itemArray = getToDoItems();
+    for (var i = 0; i < itemArray.length; i++) {
+        displayToDoItem(itemArray[i]);
+    }
+}
 function main() {
     if (isValid()) {
         var item = getToDoItem();
         displayToDoItem(item);
+        saveToDo(item);
     }
 }
 function isValid() {
@@ -38,8 +47,10 @@ function displayToDoItem(item) {
     var itemText = document.createElement("h3");
     itemText.innerText = item.title;
     var itemDate = document.createElement("p");
-    itemDate.innerText = item.dueDate.toDateString();
+    var dueDate = new Date(item.dueDate.toString());
+    itemDate.innerText = dueDate.toDateString();
     var itemDiv = document.createElement("div");
+    itemDiv.onclick = markComplete;
     if (item.isCompleted) {
         itemDiv.classList.add("completed");
     }
@@ -64,6 +75,20 @@ function markComplete() {
     var completedItems = document.getElementById("complete-items");
     console.log(completedItems);
     completedItems.appendChild(itemDiv);
+}
+function saveToDo(item) {
+    var currItems = getToDoItems();
+    if (currItems == null) {
+        currItems = new Array();
+    }
+    currItems.push(item);
+    var currItemsString = JSON.stringify(currItems);
+    localStorage.setItem(todokey, currItemsString);
+}
+function getToDoItems() {
+    var itemString = localStorage.getItem(todokey);
+    var item = JSON.parse(itemString);
+    return item;
 }
 function getInputId(id) {
     return document.getElementById(id);
