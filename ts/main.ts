@@ -1,2 +1,89 @@
-const picker = datepicker("#due-date");
+// @ts-ignore: Ignoring issue with datepicker lack of intellisense
+const picker = datepicker("#due-date"); 
 picker.setMin(new Date()); // Set to current date
+
+class ToDoItem{
+    title:string;
+    dueDate:Date;
+    isCompleted:boolean;
+}
+
+window.onload = function(){
+    let addItem = document.getElementById("add");
+    addItem.onclick = main;
+}
+
+function main(){
+    if(isValid()){
+        let item = getToDoItem();
+        displayToDoItem(item);
+    }
+}
+
+function isValid():boolean{
+
+}
+
+/**
+ * get all input off form and wrap int 
+ * a todo item object
+ */
+function getToDoItem():ToDoItem{
+    let myItem = new ToDoItem();
+
+    // title
+    let titleInput = getInputId("title"); // get the title html element
+    myItem.title = titleInput.value; // stores the value of the title element as the objects title
+
+    // due date
+    let dueDateInput = getInputId("due-date");
+    myItem.dueDate = new Date(dueDateInput.value); // converts string into date
+
+    // isCompleted
+    let isCompleted = getInputId("is-complete");
+    myItem.isCompleted = isCompleted.checked;
+
+    return myItem;
+
+
+}
+
+/**
+ * 
+ * @param item display given todo item on the webpage
+ */
+function displayToDoItem(item:ToDoItem):void{
+    let itemText = document.createElement("h3");
+    itemText.innerText = item.title;
+
+    let itemDate = document.createElement("p");
+    itemDate.innerText = item.dueDate.toDateString();
+
+    // <div class="completed"></div> or empty <div></div>
+    let itemDiv = document.createElement("div");
+    if(item.isCompleted){
+        itemDiv.classList.add("completed");
+    }
+
+    /*
+        <div class = "completed">
+            <h3>Gym</h3>
+            <p>Everyday!!!</p>
+        </div>
+    */
+    itemDiv.appendChild(itemText);
+    itemDiv.appendChild(itemDate);
+
+    if(item.isCompleted){
+        let completeToDos = document.getElementById("complete-items");
+        completeToDos.appendChild(itemDiv);
+    }
+    else{
+        let incompleteToDos = document.getElementById("incomplete-items");
+        incompleteToDos.appendChild(itemDiv);
+    }
+}
+
+function getInputId(id:string):HTMLInputElement{
+    return <HTMLInputElement>document.getElementById(id);
+}
