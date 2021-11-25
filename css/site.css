@@ -15,7 +15,7 @@ html {
   width: 100%;
   overflow: hidden
 }
-
+/* open at your own risk*/
 body {
   font-size: 40px;
   color: #E8E8E8;
@@ -72,16 +72,12 @@ a {
     flex-wrap: wrap;
     justify-content: center;
     display: flex;
-    
-    margin-right: 5em;
 }
 
-#incomplete-items{
-    border: 3px solid red;
-}
+
 
 #complete-items{
-    border: 3px solid blue;
+    
     text-decoration: line-through;
 }
 
@@ -113,21 +109,18 @@ input[type=checkbox]{
 }
 
 #incomplete-items .incomplete{
-    background-color:rgb(182, 32, 6);
     width:fit-content;
     color: white;
-    border: 1px solid black;
+    
     border-radius: .2em;
     margin-top: .5em;
 
 }
 
 #complete-items .completed{
-    background-color: rgb(28, 60, 243);
+    
     color: white;
     width:fit-content;
-    border: 1px solid black;
-    border-radius: .8em;
     margin-top: .5em;
 }
 
