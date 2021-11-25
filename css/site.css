@@ -8,6 +8,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    display: flex;
+    
+    margin-right: 5em;
 }
 
 #incomplete-items{
@@ -16,6 +19,7 @@
 
 #complete-items{
     border: 3px solid blue;
+    text-decoration: line-through;
 }
 
 h1{

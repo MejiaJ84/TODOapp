@@ -13,6 +13,9 @@ class ToDoItem{
 window.onload = function(){
     let addItem = document.getElementById("add");
     addItem.onclick = main;
+
+    let clearList = document.getElementById("clear_list");
+    clearList.onclick = clearItems;
     
     // Load saved item
     loadSavedItem();
@@ -148,4 +151,10 @@ function getToDoItems():ToDoItem[]{
 
 function getInputId(id:string):HTMLInputElement{
     return <HTMLInputElement>document.getElementById(id);
+}
+
+function clearItems() {
+    document.getElementById("complete-items").innerHTML = "";
+    document.getElementById("incomplete-items").innerHTML = "";
+    localStorage.clear();
 }

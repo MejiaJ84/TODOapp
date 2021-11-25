@@ -9,6 +9,8 @@ var ToDoItem = (function () {
 window.onload = function () {
     var addItem = document.getElementById("add");
     addItem.onclick = main;
+    var clearList = document.getElementById("clear_list");
+    clearList.onclick = clearItems;
     loadSavedItem();
 };
 function loadSavedItem() {
@@ -92,4 +94,9 @@ function getToDoItems() {
 }
 function getInputId(id) {
     return document.getElementById(id);
+}
+function clearItems() {
+    document.getElementById("complete-items").innerHTML = "";
+    document.getElementById("incomplete-items").innerHTML = "";
+    localStorage.clear();
 }
